@@ -54,17 +54,17 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {	?>
 			<div class="rom-btm">
-				<div class="col-md-3 room-left wow fadeInLeft animated" data-wow-delay=".5s">
-					<img src="admin/packageimages/<?php echo htmlentities($result->ProductImage);?>" class="img-responsive" alt="">
+				<div class="col-md-3 room-left wow fadeInLeft animated" data-wow-delay="">
+				<img src="admin/pacakgeimages/<?php echo htmlentities($result->ProductImage);?>" class="img-responsive" alt="">
 				</div>
-				<div class="col-md-6 room-midle wow fadeInUp animated" data-wow-delay=".5s">
+				<div class="col-md-6 room-midle wow fadeInUp animated" data-wow-delay="">
 					<h4>Product Name: <?php echo htmlentities($result->ProductName);?></h4>
 					<h6>Product Type : <?php echo htmlentities($result->ProductType);?></h6>
 					<p><b>Product Location :</b> <?php echo htmlentities($result->ProductLocation);?></p>
 					<p><b>Product Quantity :</b> In Tons </p>
 				</div>
-				<div class="col-md-3 room-right wow fadeInRight animated" data-wow-delay=".5s">
-					<h5>INR <?php echo htmlentities($result->ProductPrice);?></h5>
+				<div class="col-md-3 room-right wow fadeInRight animated" data-wow-delay="">
+					<h5>RS <?php echo htmlentities($result->ProductPrice);?></h5>
 					<a href="product-details.php?pkgid=<?php echo htmlentities($result->ProductId);?>" class="view">Buy</a>
 				</div>
 				<div class="clearfix"></div>

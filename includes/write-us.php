@@ -5,7 +5,7 @@ if(isset($_POST['submit']))
 $issue=$_POST['issue'];
 $description=$_POST['description'];
 $email=$_SESSION['login'];
-$sql="INSERT INTO  tblissues(UserEmail,Issue,Description) VALUES(:email,:issue,:description)";
+$sql = "INSERT INTO tblissues(UserEmail,Issue,Description) VALUES(:email,:issue,:description)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':issue',$issue,PDO::PARAM_STR);
 $query->bindParam(':description',$description,PDO::PARAM_STR);

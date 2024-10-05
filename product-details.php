@@ -106,49 +106,56 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {	?>
 
-<form name="book" method="post">
-		<div class="selectroom_top">
-			<div class="col-md-4 selectroom_left wow fadeInLeft animated" data-wow-delay=".5s">
-                <img src="admin/packageimages/<?php echo htmlentities($result->ProductImage);?>" class="img-responsive" alt="">
-			</div>
-			<div class="col-md-8 selectroom_right wow fadeInRight animated" data-wow-delay=".5s">
-				<h2><?php echo htmlentities($result->ProductName);?></h2>
-				<p class="dow">#PKG-<?php echo htmlentities($result->ProductId);?></p>
-				<p><b>Product Type :</b> <?php echo htmlentities($result->ProductType);?></p>
-				<p><b>Product Location :</b> <?php echo htmlentities($result->ProductLocation);?></p>
-					
-					
-						<div class="clearfix"></div>
-				<div class="grand">
-					<p>Grand Total</p>
-					<h3>INR.800</h3>
-				</div>
-			</div>
-		<h3 >Product Details</h3>
-				<p style="padding-top: 1%"><?php echo htmlentities($result->ProductDetails);?> </p>	
-				<div class="clearfix"></div>
-		</div>
-		<div class="selectroom_top">
+<form action="https://uat.esewa.com.np/epay/main" method="POST">
+    <!-- Product Details -->
+    <div class="selectroom_top">
+        <div class="col-md-4 selectroom_left wow fadeInLeft animated" data-wow-delay=".5s">
+            <img src="admin/packageimages/<?php echo htmlentities($result->ProductImage);?>" class="img-responsive" alt="">
+        </div>
+        <div class="col-md-8 selectroom_right wow fadeInRight animated" data-wow-delay=".5s">
+            <h2><?php echo htmlentities($result->ProductName);?></h2>
+            <p class="dow">#PKG-<?php echo htmlentities($result->ProductId);?></p>
+            <p><b>Product Type :</b> <?php echo htmlentities($result->ProductType);?></p>
+            <p><b>Product Location :</b> <?php echo htmlentities($result->ProductLocation);?></p>
+            <div class="grand">
+                <p>Grand Total</p>
+                <h3>INR.800</h3> <!-- Make sure this is dynamic for the actual product price -->
+            </div>
+        </div>
 
-			<div class="selectroom-info animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp; margin-top: -70px">
-				<ul>
-				
-					
-					<?php if($_SESSION['login'])
-					{?>
-						<li class="spe" align="center">
-					<button type="submit" name="submit2" class="btn-primary btn"  >Buy</button>
-						</li>
-						<?php } else {?>
-							<li class="sigi" align="center" style="margin-top: 1%">
-							<a href="#" data-toggle="modal" data-target="#myModal4" class="btn-primary btn" > Buy</a></li>
-							<?php } ?>
-					<div class="clearfix"></div>
-				</ul>
-			</div>
-			
-		</div>
-		</form>
+        <h3>Product Details</h3>
+        <p style="padding-top: 1%"><?php echo htmlentities($result->ProductDetails);?> </p>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- Hidden fields for eSewa payment -->
+    <input value="800" name="tAmt" type="hidden"> <!-- Total Amount -->
+    <input value="800" name="amt" type="hidden"> <!-- Actual Amount -->
+    <input value="0" name="txAmt" type="hidden"> <!-- Tax Amount -->
+    <input value="0" name="psc" type="hidden"> <!-- Service Charge -->
+    <input value="0" name="pdc" type="hidden"> <!-- Delivery Charge -->
+    <input value="epay_payment" name="scd" type="hidden"> <!-- eSewa Merchant Code -->
+    <input value="<?php echo htmlentities($result->ProductId); ?>" name="pid" type="hidden"> <!-- Product ID -->
+    <input value="http://yourwebsite.com/success.php?q=su" type="hidden" name="su"> <!-- Success URL -->
+    <input value="http://yourwebsite.com/cancel.php?q=fu" type="hidden" name="fu"> <!-- Failure/Cancel URL -->
+
+    <!-- Buy Button -->
+    <div class="selectroom-info animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp; margin-top: -70px">
+        <ul>
+            <?php if($_SESSION['login']) { ?>
+                <li class="spe" align="center">
+                    <button type="submit" class="btn-primary btn">Buy Now</button>
+                </li>
+            <?php } else { ?>
+                <li class="sigi" align="center" style="margin-top: 1%">
+                    <a href="#" data-toggle="modal" data-target="#myModal4" class="btn-primary btn">Buy Now</a>
+                </li>
+            <?php } ?>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+</form>
+
 <?php }} ?>
 
 
